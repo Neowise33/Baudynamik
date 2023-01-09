@@ -1,0 +1,414 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[fleqn,twoside]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{eurosym}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage{nicefrac}
+\usepackage{wasysym}
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{textcomp}
+\usepackage{comment}
+%\usepackage{units}
+\usepackage{siunitx}
+\usepackage{yfonts}
+\usepackage{calligra}
+\usepackage{csquotes}
+%\usepackage{emerald}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{stanli}
+\usepackage{romanbar}
+\usepackage{graphicx}
+\usepackage{tabto}
+\usepackage{todonotes}
+%\usepackage{3dstructuralanalysis}
+%\usepackage{structuralanalysis}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{multicol}
+
+
+
+%Befehle abändern
+%Itemize ohne Lücken
+\setlist[itemize]{noitemsep, topsep=0pt}
+\raggedbottom
+%\renewcommand{\todo}[1]{\todo[inline]{#1}}
+
+%Spaltenabstand 1cm
+\setlength{\columnsep}{1cm}
+
+%Abstand Section
+\titlespacing*{\section}{0cm}{2mm}{2mm}
+\titlespacing*{\subsection}{0cm}{2mm}{2mm}
+
+%Betragsfunktion
+\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
+%Einheitenfunktion
+\newcommand{\un}[2]{{\unit[#1]{\color{black!100}[#2]}}}
+
+\usepackage[pdftex, colorlinks, linkcolor=black, frenchlinks]{hyperref}
+\usepackage[landscape, a4paper , lmargin = {0.5cm} , rmargin = {0.5cm} , tmargin = {0.5cm} , bmargin = {0.5cm} ]{geometry}
+%\pagestyle{fancy}
+
+\title{\Huge{\textfrak{Baudynamik}}}
+\author{\calligra{Jonas Konrad}}
+\date{\textfrak{\today}}
+
+\begin{document}
+\small
+\parindent 0pt
+%\fancyhead[L]{Jonas Konrad}
+\fancyfoot[L]{\frakfamily J. K.}
+\fancyfoot[R]{\frakfamily }
+\fancyfoot[C]{\frakfamily ----\\Seite \thepage}
+%\maketitle \thispagestyle{empty}
+%\initfamily %Für Initialien
+\begin{center}
+\textfrak{Diese Formelsammlung wurde im Wintersemester 2022/2023 von Jonas Konrad verfasst.\\Dozent: Prof. Dr.-Ing. habil. P. Betsch , Übungsleiter: Prof. Dr.-Ing. habil. Th. Seelig , Kein Anspruch auf Vollständigkeit oder Fehlerfreiheit. LaTex Vorlage: github.com/Neowise33}
+\end{center}
+%tableofcontents
+%\listoftodos
+%\newpage
+
+\begin{multicols*}{3}
+
+
+%SEITE 1 PDF SCAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\section{Koordinatensysteme}
+    \begin{itemize}
+    \item karthesisch
+        \begin{itemize}
+            \item $\vec{r}(t)  =x(t) \vec{e}_x+y(t) \vec{e}_y+z(t) \vec{e}_z$
+            \item $\vec{v}(t)  =\dot{x}(t) \vec{e}_x+\dot{y}(t) \vec{e}_y+\dot{z}(t) \vec{e}_z$
+            \item $\vec{a}(t)  =\ddot{x}(t) \vec{e}_x+\ddot{y}(t) \vec{e}_y+\ddot{z}(t) \vec{e}_z$
+        \end{itemize}
+    \item polar
+        \begin{itemize}
+         \item $\vec{e}_r(\varphi)=\cos \varphi \vec{e}_x+\sin \varphi \vec{e}_y $
+        \item $ e_{\varphi}(\varphi)=\sin \varphi \vec{e}_x+\cos \varphi \vec{e}_y$
+        \item $\frac{d \vec{e}_x}{d \varphi}=\vec{e}_{\varphi}$
+        \item $\frac{d \vec{e}_{\varphi}}{d \varphi}=\vec{e}_r$
+        \item $\dot{\overrightarrow{e_r}}=\frac{d \vec{e}_r}{d t}=\frac{d \vec{e}_r}{d \varphi} \dot{\varphi}=\dot{\varphi} \vec{e}_{\varphi}$
+        \item $\dot{e_{\varphi}}=\frac{d \vec{e}_{\varphi}}{d t}=-\dot{\varphi} \vec{e}_r$
+        \item $\vec{r}(t)=r(t) \vec{e}_r(\varphi(t))$
+        \item $\vec{v}(t)=\dot{r} \vec{e}_r+r \dot{\varphi} \vec{e}_{\varphi}$
+        \item $\vec{a}(t)=\left(\ddot{r}-r \dot{\varphi}^2\right) \vec{e}_r+\left(2 \dot{r} \varphi^2+r \ddot{\varphi}\right) \vec{e}_{\varphi},$
+        \item $ \text { mit } \dot{\varphi}=\omega, \text { Zylinderkoord, im 3D }$
+      \end{itemize}\end{itemize}
+\section{Bewegungsgleichungen}
+\subsection{Allgemeines}
+\begin{itemize}
+\item $\omega_0  =\sqrt{\frac{k}{m}}=2 \pi f=\frac{2 \pi}{T} \text { : Eigenkreisfrequenz } $
+\item $\delta  =\frac{d}{2 m} \text { : Abklingkoeffizient } $
+\item $\tau  =\omega_0 \cdot t \text { : dimensionslose Eigenzeit } $
+\item $D  =\frac{d}{2 \sqrt{k m}} = \frac{d}{2 \omega_0 m}: \text { dimensionsloses Dämpungsmaß } $
+\begin{itemize}
+    \item $ * 1<D: \text { Kriechbewegung } $
+    \item $ * 0<D<1 \text { : gedämpfte Schwingung } $
+    \item $ * D=0: \text { ungedämpfte Schwingung } $
+    \item $ *-1<D<0 \text { : oszillatorische Anfachung } $
+    \item $ * D<-1: \text { nicht oszillatorische Anfachung } $
+\end{itemize}
+\item $\Omega  =\frac{2 \pi}{T_c}: \text { Erregerkreisfrequenz } $
+\item $\eta  =\frac{\Omega}{\omega_0}: \text { Abstimmungsverhältnis } $
+\item $\nu  =\sqrt{1-D^2} $
+\end{itemize}
+
+\subsection{Typen von Bewegungsgleichungen}
+
+\begin{itemize}
+    \item Ungedämpfte freie Schwingung
+    \begin{itemize}
+    \item \text { DGL: } $\ddot{x}+\omega^2 x=0 $
+    \item \text { Lsg: } $x(t)=C \cos (\omega t-\alpha)$
+    \end{itemize}
+    \item Gedämpfte freie Schwingung
+    \begin{itemize}
+    \item DGL: $\ddot{x}+2 \delta \dot{x}+\omega^2 x=0$
+    \small
+    \item Lsg ($D \ll 1): x(t)=C e^{-\delta t} \cos \left(\sqrt{1-D^2} \omega t-\alpha\right)=C e^{-\delta t} \cos (\nu \tau-\alpha)$
+    \small
+    \end{itemize}
+    \item Ungedämpfte erzwungene Schwingung
+    \begin{itemize}
+    \item mit $F(t)=F_0 \cos (\Omega t)$
+    \item DGL: $\ddot{x}+\omega^2 x=\omega^2 X_0 \cos (\Omega t)$
+    \item Lsg: $x_p(t)=X_0 V \cos (\Omega t)$
+    \item $V=\frac{1}{1-\eta^2}$ im Allgemeinen; muss bestimmt werden durch Ableiten von $x_p$ und Koeffizientenvergleich
+    \end{itemize}
+
+
+
+%SEITE 2 PDF SCAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\item Gedämpfte erzwungene Schwingung
+\begin{itemize}
+\item $\text {DGL: } \Ddot{x}+2 D \omega \dot{x}+\omega^2 x=X_0 E \omega^2 \cos (\Omega t) $
+\item $\text {Lsg: } x_p(t)=X_0 V \cos (\Omega t-\varphi) $
+\item $E=1 \text { bei Erregung durch Feder } $
+\item $E=2 D \eta \text { bei Erregung über Dämpfer } $
+\item $E=\eta^2 \text { bei Erregung durch rot. Unwucht } $
+\item $E=\sqrt{1+(2 D \eta)^2} \text { bei Fundamenterregung }$
+\end{itemize}
+\end{itemize}
+
+
+\subsection{Federsteifigkeiten}
+\begin{itemize}
+    \item Federn in Reihe: $\frac{1}{k_{ges}}=\sum_i \frac{1}{k_i}$
+    \item Federn parallel: $k_{\text {ges }}=\sum_i k_i$
+    \item Ersatzfedersteifigkeiten: $k=\frac{F}{w_{\text {max}}}$
+    \item Dehnstab: $k=\frac{E A}{l}$
+    \item Eingespannter Balken, $\mathrm{F}$ am Balkenende: $k=3 \frac{F I}{l^3}$
+    \item Balken auf zwei Stützen, F in Balkenmitte: $k=48 \frac{E I}{l^3}$
+    \item Unten eingespannter, oben versch. eingespannter Balken: $k=12 \frac{E I}{l^3}$
+    \item Beidseitig eingespannter Balken:\\
+    $\mathrm{F}$ in Feldmitte: $k=192 \frac{E I}{l^3}$
+\end{itemize}
+
+\subsection{Erregung}
+\begin{itemize}
+    \item Aus mit $\Omega$ rotierende Unwucht der Masse $m_u$
+        \begin{itemize}
+            \item Zentrifugalkraft $F=m_u \cdot \Omega^2 \cdot r$
+            \item Vertikal wirkender Kraftanteil $S_v=m_u \cdot \Omega^2 \cdot r \cdot \cos (\Omega t)$
+            \item Nennfrequenz $\omega_0=\sqrt{\frac{k}{m+m_v}}$
+            \item Vergrößerungsfunktion $V_1=\frac{\eta^2}{\sqrt{\left(1-\eta^2\right)^2+(2 D \eta)^2}}$
+            \begin{itemize}
+                \item Maximale Vergrößerung bei $\eta_{\text {krit }}^2=\frac{1}{1-2 D^2}$
+                \item $V_1\left(\eta_{k r i t}\right) \approx \frac{1}{2 D}$
+            \end{itemize}
+            \item Phasenverschiebungswinkel: $\tan \gamma=\frac{2 D \eta}{1-\eta^2}$
+        \end{itemize}
+    \item Fundamenterregung
+        \begin{itemize}
+            \item Vergrößerungsfunktion $V_2=\frac{\sqrt{1+(2 D \eta)^2}}{\sqrt{\left(1-\eta^2\right)^2+(2 D \eta)^2}}$
+            \item $a_{\text {Schwinger }}=V_2 \cdot a_{E r r}$
+        \end{itemize}
+    \item Harmonische Erregung
+        \begin{itemize}
+            \item $\text { * } V_3=\frac{1}{\sqrt{\left(1-\eta^2\right)^2+(2 D \eta)^2}}$
+        \end{itemize}
+\end{itemize}
+
+\subsection{Abstimmung}
+\begin{itemize}
+    \item Überkritisch/tief: Beim An- und Abschalten wird die Resonanzfrequenz durchfahren $\left(\Omega>\omega_0\right)$ * Nur hier Abschirmung für $\eta>\sqrt{2}$ möglich
+    \item Unterkritisch/hoch: Resonanzstelle wird nicht durchfahren $\left(\Omega<\omega_0\right)$
+    \item Filterwirkung
+    \item Übertragungafunktion vergrößert die Schwingungen im Resonanzbereich und unterdrückt sie im restlichen Bereich
+    \item Scheinresonanz
+    \item Amplituden bleiben rechnerisch endlich, obwohl $\Omega=\omega_0$, da Polynome mit gleichen Nullstellen
+    \item Dirac'sche Deltafunktion: $\delta(t)= \begin{cases}0 & \text { für } t \neq 0 \\ \infty & \text { für } t=0\end{cases}$
+    \item Idealer Einheitsstos mit der Intensität \\ $\lim _{l \rightarrow 0} \int_0^l \delta(t) d t=1$
+
+
+
+
+%SEITE 3 PDF SCAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\item Isolierung
+    \begin{itemize}
+        \item Aktiv: Abschirmung von Maschinen vom Restbauteil $\left(k \& \frac{m \Omega^3}{2}\right)$
+        \item Passiv: Abschirmung des Bauteils vom bewegten Boden
+        \item Übetragungsfunktion $V_2 \equiv$ Vergrößerungsfunktion für Fundamenterregung
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Synthetische Methode (d'Alembert)}
+\begin{enumerate}
+    \item Definition der Bewegung jedes einzelnen Körpers (Rot., Trans., Rot. $+$ Trans.)
+    \item Koordinaten einführen
+    \item Anzahl Freiheitsgrade
+    \item Freischnitt aller Teilkörper in allgemeiner Lage
+    \item GGW an jedem Körper
+        \begin{itemize}
+            \item Schwerpunktssatz: $\sum F_x=m \cdot \Ddot{x}$
+            \item Drallsatz um Schwerpunkt: $\sum M^S=J^S \cdot \ddot{\varphi}$
+            \item Drallsatz um Drehpunkt: $\sum M^A=J^A \cdot \Ddot{\varphi}$
+                \begin{itemize}
+                    \item $J^A=J^S+m \cdot z_s$
+                    \item Prismen: $J^S=I_P \gamma t=I_P \frac{m}{A}$
+                    \item Quarder: $J^S=\frac{m}{12}\left(b^2+l^2\right)$
+                    \item Kreiszylinder: $J^S=\frac{m}{2} r^2$
+                    \item Stab: $J^S=\frac{1}{12} m l^2$
+                    \item Punktmasse: $J^S=ml^2$
+                \end{itemize}
+        \end{itemize}
+    \item Bindungsgleichungen
+    \item Linearisieren
+    \item Bewegungsgleichungen
+\end{enumerate}
+
+\subsection{Analytische Methode mit den Lagrange'schen Gleichungen 2. Art}
+\begin{enumerate}
+    \item Anzahl FHGe (f)
+\item generalisierte Koordinatenn $q_k, k=1, \ldots, f$
+\item Ortsvektoren zu einzelnen (n) Schwerpunkten in allgemeiner Lage $\underline{r}_i=\underline{r}_i\left(q_1, \ldots, q_k\right), i=1, \ldots, n$
+\item NN definieren
+\item Berechnung der Quadrate der Geschwindigkeiten $\abs{\dot{\underline{r}}_i}$
+\item Energieausdrücke
+\begin{itemize}
+            \item $T=T_{\text {trans }}+T_{\text {rot }}=\frac{1}{2} m  \abs{\dot{\underline{r}}_i} ^2+\frac{1}{2} J(S / A) \dot{\varphi}^2$
+            \item $V=V_{\text {Lage }}+V_{\text {Feder }}=m g h+\frac{1}{2} k u^2+\frac{1}{2} c \varphi^2$
+            \item $R= \frac{1}{2} d \Dot{x}^2$ (=Rayleigh. Dissipationsfunk.)
+\end{itemize}
+\item Generalisierte Kräfte $Q_k^*=\sum_j \underline{F_j^*} \circ \frac{\partial \underline{r}_j}{\partial q_k}$
+\begin{itemize}
+            \item Bei Momenten: $Q_k=M$
+\end{itemize}
+\item $f$ Lagrange'sche Gleichungen: \\ $\frac{d}{d t}\left(\frac{\partial T}{\partial \Dot{q}_k}\right)+\frac{\partial V}{\partial q_k} + \frac{\partial R}{\partial \Dot{q}_k}=Q_k^*$
+\end{enumerate}
+
+%SEITE 4 PDF SCAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\subsection{Systeme mit zwei Freiheitsgraden}
+
+\begin{itemize}
+    
+\item Allgemeine Form der ungedämpften Schwingung: $\underline{M} \underline{\ddot{q}}+\underline{K} \underline{q}=\underline{0}$
+\begin{itemize}
+    \item $\text {Massenmatrix } \underline{M}=\left[\begin{array}{ll}
+            m_{11} & m_{12} \\
+            m_{12} & m_{22}
+            \end{array}\right] \\$
+    \item $\text {Steifigkeitsmatrix } \underline{K}=\left[\begin{array}{ll}
+            k_{11} & k_{12} \\
+            k_{12} & k_{22}
+            \end{array}\right] \\$
+    \item $\text {Allgemeine Lösung: } q=\left[\begin{array}{l}
+            c_1 \\
+            c_2
+            \end{array}\right] \cdot \cos (\omega t+\alpha)$
+\end{itemize}
+
+\item  Bestimmung der Eigenvektoren über charakteristische Gleichung: $\operatorname{det}\left(\underline{K}-\omega^2 \underline{M}\right)=0$
+\begin{itemize}
+\item $\omega_{1,2}^2 =\frac{1}{2 a}\left(b \mp \sqrt{b^2-4 a c}\right)$
+    \begin{itemize}
+        \item $a  =m_{11} m_{22}-m_{12}^2$
+        \item $b  =k_{11} m_{22}+k_{22} m_{11}-2 k_{12} m_{12}$
+        \item $c  =k_{11} k_{22}-k_{12}^2$
+    \end{itemize}
+\end{itemize}
+
+\item  Amplitudenverhältnis $\kappa_i=\frac{m_{11} \omega_i^2-k_{11}}{k_{12}-m_{12} \omega_i^2}$
+\item  Wenn $\kappa_1=1$ Starrkörperbewegung in einem mehr-FHG-System
+\item  Eigenvektoren
+\begin{itemize}
+\item $\text {Grundschwingung: } \phi_1=\left[\begin{array}{c}
+1 \\
+\kappa_1
+\end{array}\right]$
+\item  $\text {1. Oberschwingung: } \phi_2=\left[\begin{array}{c}
+1 \\
+\kappa_2
+\end{array}\right]$
+\end{itemize}
+
+\item  Eigenformen: 1. FHG um 1 auslenken, 2. FHG um $\kappa_i$ auslenken
+\item  Abschätzen der kleinsten Eigenfrequenz über den Rayleigh-Koeffizienten: $w_1^2 \leq R=\frac{\varphi^T \cdot K}{\underline{\varphi}^T:} \cdot \underline{\varphi} \varphi$ - Raten von $\varphi$, z, B. $\varphi=\left[\begin{array}{l}1 \\ 1\end{array}\right]$ oder $\varphi=\left[\begin{array}{l}1 \\ 2\end{array}\right]$
+\item  Homogene Lösung der Bewegungsgleichung: \\$\underline{q}_H=\underline{q}_1+\underline{q}_2$
+    \begin{itemize}
+    \item $ \underline{q}_1=C_{11}\left[\begin{array}{c}
+    1 \\
+    \kappa_1
+    \end{array}\right] \cos \left(\omega_1 t+\alpha_1\right) $
+    \item $ \underline{q}_2=C_{12}\left[\begin{array}{c}
+    1 \\
+    \kappa_2
+    \end{array}\right] \cos \left(\omega_2 t+\alpha_2\right) $\\
+    \footnotesize
+        $\equiv q_1(t)=C_{11} \cos \left(\omega_1 t+\alpha_1\right)+C_{12} \cos \left(\omega_1 t+\alpha_2\right) $\\
+        $\equiv q_2(t)=C_{11} \kappa_1 \cos \left(\omega_1 t+\alpha_1\right)+C_{12} \kappa_2 \cos \left(\omega_1 t+\alpha_2\right) $
+    \footnotesize
+    \end{itemize}
+\item Partikulärlösung bei harmonischer Erregung: \\ $\underline{q}_P=\left[\begin{array}{l}a_1 \\ a_2\end{array}\right] \cos (\Omega t)\left(+\left[\begin{array}{l}b_1 \\ b_2\end{array}\right] \sin (\Omega t)\right)$
+\item $N=\det(K-\Omega^2 M)$ \\ $Z_1=\det \left( \begin{bmatrix} F_1 & N_{12}\\ F_2 & N_{22}\end{bmatrix} \right)$ ; $Z_2=\det \left( \begin{bmatrix} N_{11} & F_1\\  N_{21} & F_2 \end{bmatrix} \right)$
+\item Amplituden: $a_1 = \frac{Z_1}{N}$ ; $a_2 = \frac{Z_2}{N}$
+\item Getrennt nach Sinus und Kosinus ableiten, einsetzen und LGS über Determinanten lösen
+\item Schwingungstilgung: $a_1 \stackrel{!}{=} 0$ oder $a_2 \stackrel{!}{=} 0$
+\end{itemize}
+
+
+\section{Fourierentwicklung}
+- Für T-periodische Funktion $\mathrm{f}$ und Intervall $\mathrm{I}$ der Länge $\mathrm{T}$ gilt:
+    
+    $F(x) =a_0+\sum_{k=1}^{\infty}\left(a_k \cos \left(\frac{2 k \pi}{T} x\right)+b_k \sin \left(\frac{2 k \pi}{T} x\right)\right)$
+    \begin{itemize}
+    \item $a_0 =\frac{1}{T} \int_I f(x) d x$
+    \item $a_k =\frac{2}{T} \int_I f(x) \cos \left(\frac{2 k \pi}{T} x\right) d x$
+    \item $b_k =\frac{2}{T} \int_I f(x) \sin \left(\frac{2 k \pi}{T} x\right) d x$
+    \end{itemize}
+- $\mathrm{f}$ ungerade $\leftrightarrow a_0=a_k=0$ für $k \geq 0$\\
+- f gerade $\leftrightarrow b_k=0$ für $k \geq 1$
+
+
+%SELBSTGESCHRIEBEN!!!!!!!!!!!!!!!!!!!!!
+
+\section{Diverse Formeln}
+\begin{itemize}
+    \item Eigenfrequenzen System (geg.: $M\Ddot{q}+Kq=F$) \\ $\rightarrow$ $\det(K-\omega^2M)=0$ $\rightarrow$ $\omega_{1/2}=...$
+    \item Eigenvektoren $(K-\omega^2M)\cdot\Phi=\begin{bmatrix}{0}\\{0}\end{bmatrix}$ $\rightarrow$ $\Phi=\begin{bmatrix}{1}\\{...}\end{bmatrix}$ ; ...=K ($\omega_1$ und $\omega_2$ einsetzen)
+    \item Mit modaler Transformation System entkoppeln: \\ $\Phi=\begin{bmatrix}{\Phi_1}{\Phi_2}{...}\end{bmatrix} ^{\underline{\overset{\wedge}{=}1}}$\\
+     $\tilde{M} \cdot \Ddot{x}+\tilde{K}\cdot x = \Phi^TM\Phi \cdot \Ddot{x} + \Phi^T K \Phi \cdot x$ $\rightarrow \Ddot{x}_1 + \omega^2_1 \cdot x_1=0$; $q=\Phi\cdot x$ ; $q=\begin{bmatrix} {x}\\{\varphi} \end{bmatrix}$ ; $x=\begin{bmatrix}{x_1}\\{x_2}\end{bmatrix}$ \\
+     Modalvektoren: $C_i = C_{1i} \begin{bmatrix} {1}\\{\kappa_i} \end{bmatrix}$
+
+     \item logarithmisches Dekrement: \\
+     $\delta=\frac{1}{n}\ln{\left( \frac{x_n}{x_{n+1}}\right)}=\frac{2\pi D}{\sqrt{1-D^2}}$\\Dämpfunskonstante aus Amplitude berechnen
+
+     \item Rayleighquotient: $R=\frac{\varphi^T K \varphi}{\varphi^T M \varphi} \geq \omega_1^2$\\
+     $\varphi$=Abschätzung 1.EV
+
+     \item $x(t)=5\sin(3\pi t)+6 \cos(3\pi t)$ Amplitude=$\sqrt{5^2+6^2}$;\\Frequenz= $\frac{\omega}{2\pi}=\frac{3\pi}{2\pi}$ ; Phas.Versch.=$\arctan(5/6)$
+
+     \item Allgemeine Lösung der Bewegungsgleichung:
+     \begin{itemize}
+         \item Normalform: $\Ddot{x}+\frac{d}{m}\Dot{x}+\frac{k}{m}x=\frac{F(t)}{m}$
+         \item Allg. Lösung: $x_a=x_h+x_p$
+         \item Homogene Lösung: $x_h=e^{-\omega_0\cdot t\cdot D} C \cdot \cos(\omega_d \cdot t - \alpha)$
+             \begin{itemize}
+                \item Eigenzeit: $\omega_d=\sqrt{1-D^2}\omega_0$
+             \end{itemize}
+         \item in Eigenzeit: $\tau=\omega_0 \cdot t$ \\ 
+         $x_h=e^{-\tau \cdot D}\cdot C \cdot \cos(\nu \tau - \alpha)$ ; $\nu = \sqrt{1-D^2}$\\
+         $x_h=e^{-\tau \cdot D}\cdot (A \cos(\omega_d t) + B \cos(\omega_d t))$
+         \item Partikuläre Lösung: $x_p = C_p \cdot \cos(\eta \tau - \gamma) = C_p \cdot \cos(\Omega t - \gamma)$ $\rightarrow$ $C_p=X_0\cdot V_i$
+     \end{itemize}
+     \item Eigenfrequenz und Lehr'sches Dämpfungsmaß des gedämpften Systems
+        \begin{enumerate}
+            \item Benötigt: Linearisierte Bewegungsgleichung mit sortierten $\varphi$
+            \item $\omega_0 = \sqrt{(\text{Wert vor } \varphi)}$
+            \item $\Ddot{\varphi} \rightarrow \varphi'' \cdot \omega_0^2$ ; $\dot{\varphi} \rightarrow \varphi' \cdot \frac{1}{\omega_0} \omega_0^2$ ;
+            $\varphi \rightarrow \varphi \cdot \omega^2_0$
+            \item $\cos{(\omega \cdot t)} \rightarrow \cos{(\eta \cdot \tau)}$
+            \item Bwg-Gl. durch $\omega_0^2$ teilen
+            \item Wert vor $\varphi' = 2\cdot D$ ;
+            Eigenzeit: $\omega_d=\sqrt{1-D^2}\omega_0$
+            \item $\varphi = \varphi_h + \varphi_p$
+            \item Allgemeine Lösung: \\ Vergrößerungsfunktion V bestimmen (Seite 1)
+        \end{enumerate}
+    \item Druchdringende Dämpfung: \\ EW $\geq$ 0 oder $R \geq 0 \ \forall \ \Dot{q}$ $\rightarrow$ postiv semi-definit \\ $\rightarrow$ mind. 1x $EW = 0$, $K$ $\cup$ $M$ gekoppelt $\rightarrow$ ddD \\ Wenn keine Kopplung: vollständige Dämpfung
+\end{itemize}
+
+\end{multicols*}
+
+
+
+\small
+\end{document}
+
